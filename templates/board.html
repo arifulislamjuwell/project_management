@@ -66,12 +66,23 @@
           <!-- First Photo Grid-->
           <div class="w3-row-padding">
             {% for board in boards %}
-            <div class="w3-third w3-container w3-margin-bottom" id='myBoard'>
-              <div class="w3-container w3-white">
+            <div class="w3-third w3-container w3-margin-bottom boardpost" id='myBoard' onclick="check()">
+              <div class="w3-container w3-white"><img id="check" style="width:40px;" src="{% static 'img\check.png' %}">
                 <p><b>{{ board.title }}</b></p>
                 <p>{{ board.descrip }}</p>
                 <p>{{ board.date }}</p>
               </div>
+              <button style="
+                background-color: #4CAF50; /* Green */
+                border: black;
+                color: rgb(255, 255, 255);
+                padding: 10px 133px;
+                text-align: center;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+              "> Manege </button>
             </div>
             {% endfor %}
             <div class="w3-third w3-container w3-margin-bottom">
@@ -89,10 +100,7 @@
             <div class="w3-col m6">
               <img src="/w3images/avatar_g.jpg" alt="Me" style="width:100%">
             </div>
-            <div class="w3-col m6">
-              <img src="/w3images/me2.jpg" alt="Me" style="width:100%">
-            </div>
-          </div>
+
         
           <div class="w3-container w3-padding-large" style="margin-bottom:32px">
             <h4><b>About Me</b></h4>
@@ -256,13 +264,16 @@
           document.getElementById('myFrom').style.display='none';
         }
         </script>
-        {% for board in boards %}
+
         <script>
-          var select= document.getElementById('myBoard')
-          select.style.cursor='pointer'
+          var select= document.getElementsByClassName('boardpost')
+          for (var i=0; i < select.length; i++) {
+          select[i].style.cursor = 'pointer';
+          }
           
+
         </script>
-        {% endfor %}
+  
         
 
 </body>
