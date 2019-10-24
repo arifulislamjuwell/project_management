@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'index',
     'authenticate',
-    'board_m'
+    'board_m',
 ]
 
 MIDDLEWARE = [
