@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static 'form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'index/team.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -30,9 +31,9 @@
             <p class="w3-text-grey" id="ajaxtest">Template by W3.CSS</p>
           </div>
           <div class="w3-bar-block">
-            <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a> 
+            <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>You have {{boards|length}} boards</a> 
             <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a> 
-            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+
           </div>
 
 
@@ -60,17 +61,17 @@
             <div class="w3-container">
             <h1><b>My Board</b></h1>
             <div class="w3-section w3-bottombar w3-padding-16">
-              <span class="w3-margin-right">Filter:</span> 
-              <button class="w3-button w3-black">ALL</button>
-              <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
-              <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-              <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+              <button class="w3-button  w3-black" ><i class="fa fa-users w3-margin-right"></i>Own Board</button>
+              <button class="w3-button w3-white active" ><i class="fa fa-users w3-margin-right"></i>My Team</button> &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp;  &emsp; &emsp;
+              <button class="w3-button w3-ripple w3-red" onclick="open_teamForm()"><i class="w3-margin-right"></i>Create Team</button>
+              <button class="w3-button w3-ripple w3-red" onclick="openForm()"><i class=" w3-margin-right"></i>Create Board</button>
+
             </div>
             </div>
           </header>
           
           <!-- First Photo Grid-->
-          <div class="w3-row-padding">
+          <div class="w3-row-padding" id="board_style">
             {% for board in boards %}
             <div class="w3-third w3-container w3-margin-bottom boardpost" id='myBoard' onclick="check()">
               <div class="w3-container w3-white"><img id="check" style="width:40px;" src="{% static 'img\check.png' %}">
@@ -241,15 +242,41 @@
                   <input type="button" value="Close" onclick="closeForm()">
                 </div>
               <div class="row">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" onclick="ajax()">
               </div>
               </form>
             </div>
             <!-- End BOARD content -->
 
+
+              <!-- team form -->
+              <div class="team" id="teamForm" >
+            <form class="form-style-9">
+              {% csrf_token %}
+              <ul>
+                  <li>
+                      <input type="text" name="field3" class="field-style field-full align-none" placeholder="Subject" />
+                      </li>
+ 
+              <li>
+              <input type="text" name="field3" class="field-style field-full align-none" placeholder="Subject" />
+              </li>
+              <li>
+              <textarea name="field5" class="field-style" placeholder="Message"></textarea>
+              </li>
+              <li>
+              <button id="close1" onclick="closeteam()">close</button> <input type="submit" value="Send Message" />
+              </li>
+              </ul>
+              </form>
+              </div>
+   <!-- End BOARD content -->
+
+
+
         </div>
         <script>
-          
+          function ajax(){
           $(document).on('submit', '#boardForm', function(e){
             e.preventDefault();
   
@@ -265,8 +292,13 @@
                 alert('Board Created')
               }
             });
+            setInterval(function(){
+              $('board_style').load().fadeIn(slow)
+            },1000);
             $("#myFrom").hide();
-            });
+
+            })};
+
         </script>
 
 
@@ -280,12 +312,23 @@
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
+
+
         function openForm(){
             document.getElementById('myFrom').style.display="block";
         }
         function closeForm(){
           document.getElementById('myFrom').style.display='none';
         }
+        
+
+        function open_teamForm(){
+            document.getElementById('teamForm').style.display="block";
+        }
+        function closeteam(){
+            document.getElementById('teamForm').style.display="none";
+        }
+
         </script>
 
         <script>

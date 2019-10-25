@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.shortcuts import HttpResponse
 from .models import Board
 from django.contrib.auth.models import User
@@ -15,4 +15,4 @@ def create_board(request):
         Board.objects.create(creater= request.user,title=title,descrip=descrip)
 
 
-        return HttpResponse(name_list)
+        return redirect('board')

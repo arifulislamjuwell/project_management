@@ -9,6 +9,7 @@ def index(request):
 
 def board(request):
     templates= 'board.html'
+    
     try:
         my_board= Board.objects.filter(creater=request.user)
     except:
